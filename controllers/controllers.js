@@ -126,11 +126,14 @@ const remove = async (req, res) => {
 //---------------------------------------
 const search = async (req, res) => {
   try {
-    //const findPersons = await Person.find({"favoriteFoods" : {$in : "test1"}})
-    //const findPersons = await Person.find( { favouriteFoods: "test1" } )
-    //const findPersons = Person.find({ favouriteFoods: "test1" }).sort({name : 1}).limit(2).select("-age").exec()
-    
-    //res.status(200).send(findPersons);
+    const findPersons = await Person.find({
+      favoriteFoods: req.query.favouriteFoods,
+    })
+      .sort({ name: 1 })
+      .limit(2)
+      .select("-age")
+      .exec();
+    res.status(200).send(findPersons);
   } catch (error) {
     console.log(error);
   }
